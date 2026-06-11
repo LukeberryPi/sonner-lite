@@ -21,7 +21,7 @@ toast.custom((id) => <div>Anything</div>);
 toast.dismiss();
 ```
 
-The toast is unstyled by default (a white box with centered text and a close button on the right). Baseline styles use zero-specificity selectors, so Tailwind classes override them cleanly:
+The toast is unstyled by default (a white box with centered text and a close button on the right). Baseline visuals live in Tailwind's `base` layer and use zero-specificity selectors, so Tailwind v3 and v4 utilities override them cleanly:
 
 ```tsx
 <Toaster

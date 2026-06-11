@@ -253,7 +253,6 @@
   :where([data-sonner-toaster] [data-sonner-toast]) {
     left: 0;
     right: 0;
-    width: calc(100% - var(--mobile-offset-left) * 2);
   }
 
   [data-sonner-toaster][data-x-position='left'] {
@@ -283,74 +282,84 @@
   }
 }
 
-/* ----------------------------------------- */
-/* Baseline — zero-specificity defaults.     */
-/* Wrapped in :where() so any consumer class */
-/* (e.g. a Tailwind utility) wins outright.  */
-/* See docs/adr/0001.                        */
-/* ----------------------------------------- */
+/* --------------------------------------------- */
+/* Baseline — layered zero-specificity defaults. */
+/* @layer base lets Tailwind v4 utilities win;   */
+/* :where() lets Tailwind v3 utilities win.      */
+/* See docs/adr/0001.                            */
+/* --------------------------------------------- */
 
-:where([data-sonner-toaster]) {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
-    Noto Sans, sans-serif;
-}
+@layer theme, base, components, utilities;
 
-:where([data-sonner-toast]) {
-  width: var(--width);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 16px;
-  background: #fff;
-  border: 1px solid hsl(0, 0%, 93%);
-  color: hsl(0, 0%, 9%);
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  font-size: 13px;
-  text-align: center;
-}
+@layer base {
+  :where([data-sonner-toaster]) {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
+      Noto Sans, sans-serif;
+  }
 
-:where([data-sonner-toast]:focus-visible) {
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.2);
-}
+  :where([data-sonner-toast]) {
+    width: var(--width);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid hsl(0, 0%, 93%);
+    color: hsl(0, 0%, 9%);
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 13px;
+    text-align: center;
+  }
 
-:where([data-sonner-toast] [data-content]) {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-  min-width: 0;
-}
+  :where([data-sonner-toast]:focus-visible) {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.2);
+  }
 
-:where([data-sonner-toast] [data-title]) {
-  font-weight: 500;
-  line-height: 1.5;
-  color: inherit;
-}
+  :where([data-sonner-toast] [data-content]) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
 
-:where([data-sonner-toast] [data-description]) {
-  font-weight: 400;
-  line-height: 1.4;
-  color: hsl(0, 0%, 25%);
-}
+  :where([data-sonner-toast] [data-title]) {
+    font-weight: 500;
+    line-height: 1.5;
+    color: inherit;
+  }
 
-:where([data-sonner-toast] [data-close-button]) {
-  flex-shrink: 0;
-  align-self: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20px;
-  width: 20px;
-  padding: 0;
-  color: inherit;
-  background: transparent;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: opacity 100ms, background 200ms;
-}
+  :where([data-sonner-toast] [data-description]) {
+    font-weight: 400;
+    line-height: 1.4;
+    color: hsl(0, 0%, 25%);
+  }
 
-:where([data-sonner-toast] [data-close-button]:focus-visible) {
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+  :where([data-sonner-toast] [data-close-button]) {
+    flex-shrink: 0;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 100ms, background 200ms;
+  }
+
+  :where([data-sonner-toast] [data-close-button]:focus-visible) {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 600px) {
+    :where([data-sonner-toaster] [data-sonner-toast]) {
+      width: calc(100% - var(--mobile-offset-left) * 2);
+    }
+  }
 }

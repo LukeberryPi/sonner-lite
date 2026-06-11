@@ -1,7 +1,14 @@
 import { useState } from 'react';
-import { toast, Toaster, type Position } from '@lukeberrypi/sonner-lite';
+import { toast, Toaster, type Position, type ToastClassnames } from '@lukeberrypi/sonner-lite';
 
 const positions: Position[] = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'];
+
+type ToastExample = {
+  name: string;
+  buttonClass: string;
+  message: string;
+  classNames: Required<Pick<ToastClassnames, 'toast' | 'title'>>;
+};
 
 const examples = [
   {
@@ -31,13 +38,13 @@ const examples = [
       title: 'font-semibold',
     },
   },
-];
+] satisfies ToastExample[];
 
-function exampleCode(example: (typeof examples)[number]) {
-  return `toast('${example.message}', {
+function exampleCode(example: ToastExample) {
+  return `toast(${JSON.stringify(example.message)}, {
   classNames: {
-    toast: '${example.classNames.toast}',
-    title: '${example.classNames.title}',
+    toast: ${JSON.stringify(example.classNames.toast)},
+    title: ${JSON.stringify(example.classNames.title)},
   },
 });`;
 }
