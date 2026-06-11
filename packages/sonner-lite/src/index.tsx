@@ -44,8 +44,8 @@ const TIME_BEFORE_UNMOUNT = 200;
 const CloseIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="12"
-    height="12"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -456,7 +456,10 @@ function assignOffset(defaultOffset: ToasterProps['offset'], mobileOffset: Toast
   return styles;
 }
 
-const Toaster = React.forwardRef<HTMLElement, ToasterProps>(function Toaster(props, ref) {
+const Toaster: React.ForwardRefExoticComponent<ToasterProps & React.RefAttributes<HTMLElement>> = React.forwardRef<
+  HTMLElement,
+  ToasterProps
+>(function Toaster(props, ref) {
   const {
     position = 'bottom-right',
     hotkey = ['altKey', 'KeyT'],
@@ -665,7 +668,9 @@ export type {
   ExternalToast,
   Position,
   SwipeDirection,
+  ToastContent,
   ToastClassnames,
+  ToastFunction,
   ToasterProps,
   ToastT,
   ToastToDismiss,

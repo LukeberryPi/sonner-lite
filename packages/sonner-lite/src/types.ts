@@ -7,12 +7,14 @@ export interface ToastClassnames {
   closeButton?: string;
 }
 
+export type ToastContent = (() => React.ReactNode) | React.ReactNode;
+
 export interface ToastT {
   id: number | string;
-  title?: (() => React.ReactNode) | React.ReactNode;
+  title?: ToastContent;
   jsx?: React.ReactNode;
   dismissible?: boolean;
-  description?: (() => React.ReactNode) | React.ReactNode;
+  description?: ToastContent;
   duration?: number;
   delete?: boolean;
   onDismiss?: (toast: ToastT) => void;
@@ -95,3 +97,9 @@ export interface ToastToDismiss {
 export type ExternalToast = Omit<ToastT, 'id' | 'title' | 'jsx' | 'delete'> & {
   id?: number | string;
 };
+
+export interface ToastFunction {
+  (message: ToastContent, data?: ExternalToast): number | string;
+  dismiss: (id?: number | string) => number | string | undefined;
+  custom: (jsx: (id: number | string) => React.ReactElement, data?: ExternalToast) => number | string;
+}
