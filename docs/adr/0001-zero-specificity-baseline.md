@@ -1,0 +1,3 @@
+# Baseline styles use zero-specificity :where() selectors
+
+sonner-lite ships a minimal visual baseline (white box, border, centered text) in the same stylesheet as the structural CSS, but wraps every baseline selector in `:where()` so it has zero specificity. This lets any consumer class — in practice a Tailwind utility — override the baseline without `!important` or specificity hacks. We chose this over an `unstyled` prop (two code paths, and "unstyled" still needs structural CSS anyway) and over CSS `@layer` (interacts unpredictably with consumers' own layer order). Structural rules (positioning, stacking, animations, swipe) deliberately keep normal specificity so they cannot be accidentally broken.

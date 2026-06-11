@@ -1,0 +1,53 @@
+{
+  "name": "@lukeberrypi/sonner-lite",
+  "version": "0.1.0",
+  "description": "A lighter, unstyled-by-default fork of Sonner. One toast variant, Tailwind-friendly, all the animations.",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": "./dist/index.js"
+    },
+    "./dist/styles.css": "./dist/styles.css"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "bunchee --watch",
+    "build": "bunchee && cp src/styles.css dist/styles.css",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "react",
+    "notifications",
+    "toast",
+    "sonner"
+  ],
+  "author": "Luke Berry",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukeberrypi/sonner-lite.git"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.13",
+    "@types/react": "^18.0.26",
+    "bunchee": "6.3.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^4.8.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0 || ^19.0.0-rc",
+    "react-dom": "^18.0.0 || ^19.0.0 || ^19.0.0-rc"
+  }
+}

@@ -1,33 +1,54 @@
-https://github.com/vallezw/sonner/assets/50796600/59b95cb7-9068-4f3e-8469-0b35d9de5cf0
+# sonner-lite
 
-[Sonner](https://sonner.emilkowal.ski/) is an opinionated toast component for React. You can read more about why and how it was built [here](https://emilkowal.ski/ui/building-a-toast-component).
+A trimmed-down fork of [Sonner](https://github.com/emilkowalski/sonner) by Emil Kowalski.
+
+It keeps everything that makes Sonner feel great — all animations, the default stacking behaviour, every position, and swipe gestures — and removes everything else: variants, rich colors, icons, themes, expand mode.
+
+- `packages/sonner-lite` — the `@lukeberrypi/sonner-lite` npm library
+- `apps/website` — a minimal demo site (Vite + React + Tailwind)
 
 ## Usage
 
-To start using the library, install it in your project:
+```tsx
+import { toast, Toaster } from '@lukeberrypi/sonner-lite';
+import '@lukeberrypi/sonner-lite/dist/styles.css';
+
+// Render once, anywhere in your app
+<Toaster position="bottom-right" />;
+
+// Then anywhere
+toast('Hello', { description: 'Optional description' });
+toast.custom((id) => <div>Anything</div>);
+toast.dismiss();
+```
+
+The toast is unstyled by default (a white box with centered text and a close button on the right). Baseline styles use zero-specificity selectors, so Tailwind classes override them cleanly:
+
+```tsx
+<Toaster
+  toastOptions={{
+    classNames: {
+      toast: 'bg-neutral-900 text-white rounded-xl',
+      title: 'font-semibold',
+      description: 'text-neutral-400',
+      closeButton: 'hover:bg-neutral-700',
+    },
+  }}
+/>
+```
+
+Want a full-width toast? Override the width with a class on the `toast` slot:
+
+```tsx
+<Toaster toastOptions={{ classNames: { toast: 'w-[calc(100vw-2rem)]' } }} />
+```
+
+## Development
 
 ```bash
-npm install sonner
+bun install
+bun run build   # build the library
+bun run dev     # run the demo website
 ```
 
-Add `<Toaster />` to your app, it will be the place where all your toasts will be rendered.
-After that you can use `toast()` from anywhere in your app.
-
-```jsx
-import { Toaster, toast } from 'sonner';
-
-// ...
-
-function App() {
-  return (
-    <div>
-      <Toaster />
-      <button onClick={() => toast('My first toast')}>Give me a toast</button>
-    </div>
-  );
-}
-```
-
-## Documentation
-
-Find the full API reference in the [documentation](https://sonner.emilkowal.ski/getting-started).
+MIT — original work copyright Emil Kowalski (see packages/sonner-lite/LICENSE.md).
