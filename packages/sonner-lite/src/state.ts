@@ -108,8 +108,14 @@ const toastFunction = (message: titleT, data?: ExternalToast) => {
   return id;
 };
 
+interface ToastFunction {
+  (message: titleT, data?: ExternalToast): number | string;
+  dismiss: (id?: number | string) => number | string | undefined;
+  custom: (jsx: (id: number | string) => React.ReactElement, data?: ExternalToast) => number | string;
+}
+
 // We use `Object.assign` to maintain the correct types as we would lose them otherwise
-export const toast = Object.assign(toastFunction, {
+export const toast: ToastFunction = Object.assign(toastFunction, {
   dismiss: ToastState.dismiss,
   custom: ToastState.custom,
 });

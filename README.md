@@ -11,7 +11,6 @@ It keeps everything that makes Sonner feel great — all animations, the default
 
 ```tsx
 import { toast, Toaster } from '@lukeberrypi/sonner-lite';
-import '@lukeberrypi/sonner-lite/dist/styles.css';
 
 // Render once, anywhere in your app
 <Toaster position="bottom-right" />;

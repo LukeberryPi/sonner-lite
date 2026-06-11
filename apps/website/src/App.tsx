@@ -1,8 +1,46 @@
 import { useState } from 'react';
 import { toast, Toaster, type Position } from '@lukeberrypi/sonner-lite';
-import '@lukeberrypi/sonner-lite/dist/styles.css';
 
 const positions: Position[] = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'];
+
+const examples = [
+  {
+    name: 'Success',
+    buttonClass: 'bg-emerald-500 hover:bg-emerald-600',
+    message: 'Your preferences have been updated',
+    classNames: {
+      toast: 'bg-emerald-400 border-emerald-400 text-emerald-950 rounded-lg shadow-none',
+      title: 'font-semibold',
+    },
+  },
+  {
+    name: 'Error',
+    buttonClass: 'bg-rose-600 hover:bg-rose-700',
+    message: 'Your preferences have not been saved due to an error',
+    classNames: {
+      toast: 'bg-rose-600 border-rose-600 text-white rounded-lg shadow-none',
+      title: 'font-semibold',
+    },
+  },
+  {
+    name: 'Neutral',
+    buttonClass: 'bg-neutral-500 hover:bg-neutral-600',
+    message: 'Unable to load everything',
+    classNames: {
+      toast: 'bg-neutral-200 border-neutral-200 text-neutral-900 rounded-lg shadow-none',
+      title: 'font-semibold',
+    },
+  },
+];
+
+function exampleCode(example: (typeof examples)[number]) {
+  return `toast('${example.message}', {
+  classNames: {
+    toast: '${example.classNames.toast}',
+    title: '${example.classNames.title}',
+  },
+});`;
+}
 
 export default function App() {
   const [position, setPosition] = useState<Position>('bottom-right');
@@ -57,6 +95,21 @@ export default function App() {
           </label>
         </div>
       </section>
+
+      {examples.map((example) => (
+        <section key={example.name} className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold tracking-tight">{example.name}</h2>
+          <pre className="overflow-x-auto rounded-lg bg-neutral-900 p-4 text-xs leading-relaxed text-neutral-100">
+            <code>{exampleCode(example)}</code>
+          </pre>
+          <button
+            className={`self-start rounded-md px-4 py-2 text-sm font-medium text-white transition-colors ${example.buttonClass}`}
+            onClick={() => toast(example.message, { classNames: example.classNames })}
+          >
+            Spawn {example.name.toLowerCase()} toast
+          </button>
+        </section>
+      ))}
 
       <Toaster
         position={position}

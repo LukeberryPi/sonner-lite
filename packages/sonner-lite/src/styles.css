@@ -351,10 +351,6 @@
   transition: opacity 100ms, background 200ms;
 }
 
-:where([data-sonner-toast] [data-close-button]:hover) {
-  background: rgba(0, 0, 0, 0.06);
-}
-
 :where([data-sonner-toast] [data-close-button]:focus-visible) {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
